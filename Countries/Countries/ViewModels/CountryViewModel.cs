@@ -11,7 +11,7 @@ namespace Countries.ViewModels
     {
         private string _name;
 
-        public string Name
+        public string name
         {
             get
             {
@@ -42,8 +42,8 @@ namespace Countries.ViewModels
 
         public override async Task Initialize(object parameters)
         {
-            Name = parameters as string;
-            Title = Name;
+            name = parameters as string;
+            Title = name;
 
             await LoadData();
         }
@@ -59,7 +59,7 @@ namespace Countries.ViewModels
             {
                 IsBusy = true;
 
-                var country = await Api.GetByNameAsync(Name);
+                var country = await Api.GetByNameAsync(name);
                 Country = country;
             }
             catch (Exception ex)

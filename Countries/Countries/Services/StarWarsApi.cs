@@ -8,35 +8,35 @@ using System.Threading.Tasks;
 
 namespace Countries.Services
 {
-    public class CountriesApi
+    public class StarWarsApi
     {
-        readonly string _api_base_url = "https://restcountries.eu/rest/v2";
+        readonly string _api_base_url = "https://swapi.co/api/";
 
-        public async Task<List<Country>> GetCountriesAsync()
+        public async Task<List<string>> GetPeopleAsync()
         {
             using (var client = new HttpClient())
             {
                 //grab json from server
-                var json = await client.GetStringAsync($"{_api_base_url}/all");
+                var json = await client.GetStringAsync($"{ _api_base_url}people/");
 
                 //Deserialize json
-                var itens = JsonConvert.DeserializeObject<List<Country>>(json);
+                var items = JsonConvert.DeserializeObject<List<string>>(json);
 
                 //return the items
-                return itens;
+                return items;
             }
         }
 
-        public async Task<Country> GetByNameAsync(string name)
+        public async Task<string> GetByNameAsync(int person_id)
         {
             //grab json from server
-            var json = await GetJsonData($"{_api_base_url}/name/{name}");
+            var json = await GetJsonData($"{_api_base_url}people/{person_id}");
 
             //Deserialize json
-            var joke = JsonConvert.DeserializeObject<Country>(json);
+            var person = JsonConvert.DeserializeObject<string>(json);
 
             //return the items
-            return joke;
+            return person;
         }
 
         async Task<string> GetJsonData(string url)
@@ -47,6 +47,5 @@ namespace Countries.Services
                 return json;
             }
         }
-
     }
 }

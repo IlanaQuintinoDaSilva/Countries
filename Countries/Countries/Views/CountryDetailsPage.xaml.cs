@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Countries.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,21 @@ namespace Countries.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CountryDetailsPage : ContentPage
 	{
-		public CountryDetailsPage ()
+        private CountryViewModel _vm;
+        public CountryViewModel ViewModel
+        {
+            get
+            {
+                if (_vm == null)
+                    _vm = new CountryViewModel();
+
+                BindingContext = _vm;
+
+                return (BindingContext as CountryViewModel);
+            }
+        }
+
+        public CountryDetailsPage ()
 		{
 			InitializeComponent ();
 		}
