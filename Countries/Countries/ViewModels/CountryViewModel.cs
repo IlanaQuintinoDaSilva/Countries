@@ -1,0 +1,79 @@
+﻿using Countries.Models;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Countries.ViewModels
+{
+    public class CountryViewModel : BaseViewModel
+    {
+        private string _name;
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value; OnPropertyChanged();
+            }
+        }
+
+        private Country _country = new Country();
+        public Country Country
+        {
+            get
+            {
+                return _country;
+            }
+            set
+            {
+                _country = value; OnPropertyChanged();
+            }
+        }
+
+        public CountryViewModel() : base("")
+        {
+        }
+
+        public override async Task Initialize(object parameters)
+        {
+            Name = parameters as string;
+            Title = Name;
+
+            await LoadData();
+        }
+
+        async Task LoadData()
+        {
+            if (IsBusy)
+                return;
+
+            Exception error = null;
+
+            try
+            {
+                IsBusy = true;
+
+                var country = await Api.GetByNameAsync(Name);
+                Country = country;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error: " + ex);
+                error = ex;
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
+            if (error != null)
+                await ShowAlertAsync("Error!", error.Message, "OK");
+        }
+    }
+}

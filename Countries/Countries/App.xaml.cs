@@ -13,7 +13,7 @@ namespace Countries
 		{
 			InitializeComponent();
 
-			MainPage = new Countries.MainPage();
+			MainPage = new Countries.Views.CountriesPage();
 		}
 
 		protected override void OnStart ()
