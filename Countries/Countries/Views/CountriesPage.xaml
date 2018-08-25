@@ -1,12 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Countries.Views.CountriesPage">
-    <ContentPage.Content>
+             xmlns:behaviors="clr-namespace:Countries.Behaviors;assembly=Countries"
+             xmlns:local="clr-namespace:Countries"
+             x:Class="Countries.Views.CountriesPage"
+             Title="{Binding Title}">
+    <ListView ItemsSource="{Binding Countries}"
+                  VerticalOptions="FillAndExpand" HasUnevenRows="true"
+                  RefreshCommand="{Binding RefreshCommand}" IsPullToRefreshEnabled="true"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  CachingStrategy="RecycleElement">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout>
+                        <!-- 
+                        <StackLayout.Padding>
+                            <OnPlatform x:TypeArguments="Thickness"
+                                iOS="10"
+                                Android="10"
+                                WinPhone="0, 0, 0, 10" />
+                        </StackLayout.Padding>
+                        -->
+                        <Label Text="{Binding .}" LineBreakMode="NoWrap" FontSize="16"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+        <!--<ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Countries List!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>
-    </ContentPage.Content>
+    </ContentPage.Content> -->
 </ContentPage>

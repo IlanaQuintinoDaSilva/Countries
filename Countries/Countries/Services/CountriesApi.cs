@@ -10,20 +10,20 @@ namespace Countries.Services
 {
     public class CountriesApi
     {
-        readonly string _api_base_url = "https://restcountries.eu/rest/v2";
+        readonly string _api_base_url = "https://restcountries.eu/rest/v2/all";
 
-        public async Task<List<string>> GetCountriesAsync()
+        public async Task<List<Country>> GetCountriesAsync()
         {
             using (var client = new HttpClient())
             {
                 //grab json from server
-                var json = await client.GetStringAsync($"{_api_base_url}/all");
+                var json = await client.GetStringAsync("https://restcountries.eu/rest/v2/all");
 
                 //Deserialize json
-                var items = JsonConvert.DeserializeObject<List<string>>(json);
+                var itens = JsonConvert.DeserializeObject<List<Country>>(json);
 
                 //return the items
-                return items;
+                return itens;
             }
         }
 

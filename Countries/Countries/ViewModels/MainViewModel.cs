@@ -1,4 +1,5 @@
-﻿using Countries.Views;
+﻿using Countries.Models;
+using Countries.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,7 @@ namespace Countries.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public ObservableCollection<string> Countries { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<Country> Countries { get; set; } = new ObservableCollection<Country>();
 
         public MainViewModel() : base("Countries")
         {
